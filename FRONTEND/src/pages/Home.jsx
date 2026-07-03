@@ -120,7 +120,9 @@ const Home = () => {
                 style={{ background: 'rgba(76, 175, 128, 0.15)', border: '1px solid rgba(76, 175, 128, 0.3)' }}
               >
                 <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4caf80', display: 'inline-block', animation: 'pulse-eco 2s infinite' }}></span>
-                <span style={{ fontSize: '0.82rem', color: '#4caf80', fontWeight: 500 }}>🇨🇩 Kinshasa, République Démocratique du Congo</span>
+                <span style={{ fontSize: '0.82rem', color: '#4caf80', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <i className="bi bi-geo-alt-fill"></i> Kinshasa, République Démocratique du Congo
+                </span>
               </div>
 
               {/* Titre principal */}
@@ -239,7 +241,9 @@ const Home = () => {
         <div className="container">
           {/* En-tête de section */}
           <div className="text-center mb-5">
-            <span className="badge mb-3 px-3 py-2 rounded-pill" style={{ background: 'rgba(45,122,78,0.12)', color: 'var(--eco-accent)', fontWeight: 600, fontSize: '0.8rem' }}>🌿 BONNES PRATIQUES</span>
+            <span className="badge mb-3 px-3 py-2 rounded-pill" style={{ background: 'rgba(45,122,78,0.12)', color: 'var(--eco-accent)', fontWeight: 600, fontSize: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <i className="bi bi-check2-circle"></i> BONNES PRATIQUES
+            </span>
             <h2 style={{ fontWeight: 800, fontSize: '2rem', color: 'var(--eco-text-primary)' }}>
               Les 4 Éco-Gestes Essentiels
             </h2>
@@ -283,7 +287,9 @@ const Home = () => {
           <div className="row align-items-center g-5">
             {/* Texte explicatif */}
             <div className="col-lg-5">
-              <span className="badge mb-3 px-3 py-2 rounded-pill" style={{ background: 'rgba(231,76,60,0.1)', color: '#e74c3c', fontWeight: 600, fontSize: '0.8rem' }}>🔴 ZONES À RISQUE</span>
+              <span className="badge mb-3 px-3 py-2 rounded-pill" style={{ background: 'rgba(231,76,60,0.1)', color: '#e74c3c', fontWeight: 600, fontSize: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <i className="bi bi-exclamation-circle-fill"></i> ZONES À RISQUE
+              </span>
               <h2 style={{ fontWeight: 800, fontSize: '1.8rem', color: 'var(--eco-text-primary)', marginBottom: 16 }}>
                 Communes de Kinshasa sous surveillance
               </h2>
@@ -336,7 +342,7 @@ const Home = () => {
       >
         <div className="container">
           <h2 style={{ fontWeight: 800, color: '#fff', fontSize: '2rem', marginBottom: 16 }}>
-            Chaque signalement compte pour Kinshasa 🌿
+            Chaque signalement compte pour Kinshasa
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 480, margin: '0 auto 32px', lineHeight: 1.8 }}>
             Rejoignez les 2 841 citoyens qui contribuent déjà à rendre notre ville plus propre et plus résiliente face aux défis climatiques.

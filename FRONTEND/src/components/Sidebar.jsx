@@ -1,6 +1,6 @@
 // =============================================================
 // src/components/Sidebar.jsx — Barre latérale de navigation
-// Menu contextuel selon le rôle : citoyen ou autorité urbaine
+// Menu contextuel selon le rôle : citoyen, autorité urbaine, superadmin
 // Supporte le mode collapsed (réduit) pour plus d'espace de travail
 // =============================================================
 import React from 'react'
@@ -46,14 +46,35 @@ const Sidebar = ({ collapsed = false, mobileOpen = false, onClose }) => {
     { to: '/education', icon: 'bi-megaphone-fill', label: 'Communication' },
   ]
 
+  // ---- MENU POUR LE SUPER ADMINISTRATEUR ----
+  const menuSuperAdmin = [
+    { to: '/superadmin-dashboard', icon: 'bi-globe2', label: 'Plateforme Globale', highlight: true },
+    { to: '/map', icon: 'bi-map-fill', label: 'Vue SIG Nationale' },
+    { to: '/statistics', icon: 'bi-pie-chart-fill', label: 'Rapports Avancés' },
+  ]
+
   // Sélectionne le menu selon le rôle de l'utilisateur connecté
-  const menuItems = user?.role === 'autorite' ? menuAutorite : menuCitoyen
+  const menuItems = user?.role === 'superadmin' ? menuSuperAdmin : (user?.role === 'autorite' ? menuAutorite : menuCitoyen)
 
   // ---- MENU DE BAS DE SIDEBAR (commun) ----
   const menuBottom = [
     { to: '/profile', icon: 'bi-person-circle', label: 'Mon Profil' },
     { to: '/settings', icon: 'bi-gear-fill', label: 'Paramètres' },
   ]
+
+  // Configuration du style du badge selon le rôle
+  const getBadgeStyle = (role) => {
+    switch (role) {
+      case 'superadmin':
+        return { bg: 'rgba(156,39,176,0.15)', border: 'rgba(156,39,176,0.3)', iconClass: 'bi-shield-fill-exclamation', iconColor: '#9c27b0', label: 'Super Administrateur' }
+      case 'autorite':
+        return { bg: 'rgba(255,193,7,0.15)', border: 'rgba(255,193,7,0.3)', iconClass: 'bi-building-fill', iconColor: '#e6ac00', label: 'Autorité Urbaine' }
+      default:
+        return { bg: 'rgba(76,175,128,0.15)', border: 'rgba(76,175,128,0.3)', iconClass: 'bi-leaf-fill', iconColor: '#4caf80', label: 'Éco-Citoyen' }
+    }
+  }
+
+  const badgeInfo = user ? getBadgeStyle(user.role) : null
 
   return (
     <>
@@ -109,14 +130,15 @@ const Sidebar = ({ collapsed = false, mobileOpen = false, onClose }) => {
           <div className="px-3 py-3">
             <div
               style={{
-                background: user.role === 'autorite' ? 'rgba(255,193,7,0.15)' : 'rgba(76,175,128,0.15)',
-                border: `1px solid ${user.role === 'autorite' ? 'rgba(255,193,7,0.3)' : 'rgba(76,175,128,0.3)'}`,
+                background: badgeInfo.bg,
+                border: `1px solid ${badgeInfo.border}`,
                 borderRadius: 10,
                 padding: '10px 12px',
               }}
             >
-              <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', marginBottom: 2 }}>
-                {user.role === 'autorite' ? '🏛️ Autorité Urbaine' : '🌱 Éco-Citoyen'}
+              <div className="d-flex align-items-center gap-1" style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', marginBottom: 2 }}>
+                <i className={`bi ${badgeInfo.iconClass}`} style={{ color: badgeInfo.iconColor, fontSize: '0.85rem' }}></i>
+                {badgeInfo.label}
               </div>
               <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {user.name}

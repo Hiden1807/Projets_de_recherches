@@ -7,8 +7,8 @@ import axiosInstance from './axiosInstance'
 // Simulation d'un délai réseau réaliste (en ms)
 const delay = (ms) => new Promise((res) => setTimeout(res, ms))
 
-// Données utilisateurs fictifs pour la démonstration
-const MOCK_USERS = [
+// Données utilisateurs fictifs pour la démonstration (modifié en `let` pour permettre la modification)
+let MOCK_USERS = [
   {
     id: 1,
     name: 'Amara Diallo',
@@ -33,6 +33,18 @@ const MOCK_USERS = [
     token: 'mock-authority-token-2024',
     stats: { geres: 87, urgences: 5, communes: 24 },
   },
+  {
+    id: 3,
+    name: 'Super Admin',
+    email: 'superadmin@ecokinshasa.cd',
+    password: 'superadmin2024',
+    role: 'superadmin', // Nouveau rôle
+    commune: 'Niveau National',
+    phone: '+243 80 000 0000',
+    avatar: null,
+    token: 'mock-superadmin-token-2024',
+    stats: {}, // Pas besoin de stats pour le moment pour ce compte
+  }
 ]
 
 /**
@@ -65,26 +77,65 @@ export const register = async (data) => {
   // Crée un nouvel utilisateur mock
   const newUser = {
     id: Date.now(),
-    name: `${data.prenom} ${data.nom}`,
+    name: `${data.prenom || ''} ${data.nom || ''}`.trim() || data.name,
     email: data.email,
-    role: data.role,
-    commune: data.commune,
-    phone: data.phone,
+    password: data.password || 'default123',
+    role: data.role || 'citoyen',
+    commune: data.commune || 'Inconnue',
+    phone: data.phone || '',
     avatar: null,
     token: `mock-token-${Date.now()}`,
     stats: { signalements: 0, resolus: 0, enCours: 0 },
   }
-  return newUser
+  MOCK_USERS.push(newUser) // Ajoute l'utilisateur à notre mock DB
+  
+  const { password, ...userWithoutPassword } = newUser
+  return userWithoutPassword
 }
 
 /**
  * updateProfile — Met à jour les informations du profil utilisateur
  * 🔧 BACKEND: Remplacer par axiosInstance.patch('auth/profile/', formData)
- * Note: Pour les images, utiliser FormData et header 'multipart/form-data'
  * @param {Object|FormData} data - Les nouvelles données du profil
  * @returns {Promise<Object>} - Le profil mis à jour
  */
 export const updateProfile = async (data) => {
   await delay(700)
   return { ...data, updated: true }
+}
+
+// =============================================================
+// NOUVELLES MÉTHODES POUR LE SUPER ADMINISTRATEUR
+// =============================================================
+
+/**
+ * getAllUsers — Récupère tous les utilisateurs (Super Admin uniquement)
+ * 🔧 BACKEND: Remplacer par axiosInstance.get('admin/users/')
+ * @returns {Promise<Array>} - Liste des utilisateurs
+ */
+export const getAllUsers = async () => {
+  await delay(500)
+  // Retourne les utilisateurs sans le mot de passe pour des raisons de sécurité
+  return MOCK_USERS.map(({ password, ...user }) => user)
+}
+
+/**
+ * deleteUser — Supprime un utilisateur (citoyen ou autorité) par son ID
+ * 🔧 BACKEND: Remplacer par axiosInstance.delete(`admin/users/${id}`)
+ * @param {number} id - L'identifiant de l'utilisateur à supprimer
+ */
+export const deleteUser = async (id) => {
+  await delay(600)
+  MOCK_USERS = MOCK_USERS.filter((user) => user.id !== id)
+  return true
+}
+
+/**
+ * createAuthorityAccount — Crée un compte pour une nouvelle autorité
+ * 🔧 BACKEND: Remplacer par axiosInstance.post('admin/authorities/', data)
+ * @param {Object} data - Données de la nouvelle autorité
+ */
+export const createAuthorityAccount = async (data) => {
+  // On réutilise register en forçant le rôle
+  return register({ ...data, role: 'autorite' })
 }

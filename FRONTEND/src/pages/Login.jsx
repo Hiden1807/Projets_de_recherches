@@ -45,7 +45,13 @@ const Login = () => {
       const userData = await login(form.email, form.password)
       loginCtx(userData) // Sauvegarde la session dans le contexte
       // Redirige selon le rôle de l'utilisateur
-      navigate(userData.role === 'autorite' ? '/authority-dashboard' : '/citizen-dashboard')
+      if (userData.role === 'superadmin') {
+        navigate('/superadmin-dashboard')
+      } else if (userData.role === 'autorite') {
+        navigate('/authority-dashboard')
+      } else {
+        navigate('/citizen-dashboard')
+      }
     } catch (err) {
       setError(err.message || 'Erreur de connexion. Vérifiez vos identifiants.')
     } finally {
@@ -55,8 +61,9 @@ const Login = () => {
 
   // Comptes de démonstration pour faciliter les tests
   const demoAccounts = [
-    { label: 'Citoyen', email: 'citoyen@ecokinshasa.cd', password: 'password123', icon: '🌱', color: '#27ae60' },
-    { label: 'Autorité', email: 'autorite@ecokinshasa.cd', password: 'admin2024', icon: '🏛️', color: '#2980b9' },
+    { label: 'Citoyen', email: 'citoyen@ecokinshasa.cd', password: 'password123', icon: 'bi-leaf-fill', color: '#27ae60' },
+    { label: 'Autorité', email: 'autorite@ecokinshasa.cd', password: 'admin2024', icon: 'bi-building-fill', color: '#2980b9' },
+    { label: 'Super Admin', email: 'superadmin@ecokinshasa.cd', password: 'superadmin2024', icon: 'bi-shield-fill-exclamation', color: '#9c27b0' },
   ]
 
   return (
@@ -126,14 +133,14 @@ const Login = () => {
         <div style={{ width: '100%', maxWidth: 420 }}>
           {/* En-tête du formulaire */}
           <div className="mb-5">
-            <h1 style={{ fontWeight: 800, fontSize: '1.8rem', color: 'var(--eco-text-primary)', marginBottom: 8 }}>Bon retour ! 👋</h1>
+            <h1 style={{ fontWeight: 800, fontSize: '1.8rem', color: 'var(--eco-text-primary)', marginBottom: 8 }}>Bon retour !</h1>
             <p style={{ color: 'var(--eco-text-secondary)', margin: 0 }}>Connectez-vous pour accéder à votre espace EcoRDC</p>
           </div>
 
           {/* ---- COMPTES DE DÉMONSTRATION ---- */}
           <div className="mb-4">
             <p style={{ fontSize: '0.8rem', color: 'var(--eco-text-secondary)', marginBottom: 8, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Comptes de démonstration</p>
-            <div className="d-flex gap-2">
+            <div className="d-flex gap-2 flex-wrap">
               {demoAccounts.map((account) => (
                 <button
                   key={account.label}
@@ -142,7 +149,7 @@ const Login = () => {
                   className="btn btn-sm flex-fill d-flex align-items-center justify-content-center gap-2 rounded-3"
                   style={{ border: `1.5px solid ${account.color}40`, background: `${account.color}10`, color: 'var(--eco-text-primary)', padding: '10px', fontWeight: 600, fontSize: '0.85rem' }}
                 >
-                  <span>{account.icon}</span> {account.label}
+                  <i className={`bi ${account.icon}`} style={{ color: account.color }}></i> {account.label}
                 </button>
               ))}
             </div>

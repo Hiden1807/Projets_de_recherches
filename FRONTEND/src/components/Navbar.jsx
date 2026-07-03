@@ -179,8 +179,9 @@ const Navbar = ({ onToggleSidebar, sidebarCollapsed }) => {
                 <ul className="dropdown-menu dropdown-menu-end shadow border-0" style={{ minWidth: 200 }}>
                   <li className="px-3 py-2">
                     <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{user?.name}</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--eco-text-secondary)' }}>
-                      {user?.role === 'autorite' ? '🏛️ Autorité Urbaine' : '🌱 Éco-Citoyen'} — {user?.commune}
+                    <div style={{ fontSize: '0.75rem', color: 'var(--eco-text-secondary)', display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <i className={user?.role === 'superadmin' ? 'bi bi-shield-fill-exclamation' : (user?.role === 'autorite' ? 'bi bi-building-fill' : 'bi bi-leaf-fill')} style={{ color: user?.role === 'superadmin' ? '#9c27b0' : (user?.role === 'autorite' ? '#e6ac00' : '#4caf80') }}></i>
+                      {user?.role === 'superadmin' ? 'Super Administrateur' : (user?.role === 'autorite' ? 'Autorité Urbaine' : 'Éco-Citoyen')} — {user?.commune}
                     </div>
                   </li>
                   <li><hr className="dropdown-divider my-1" /></li>

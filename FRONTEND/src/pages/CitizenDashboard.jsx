@@ -86,15 +86,15 @@ const CitizenDashboard = () => {
               Bienvenue sur votre espace,
             </div>
             <h1 style={{ color: '#fff', fontWeight: 800, fontSize: '1.6rem', margin: 0 }}>
-              {user?.name} 👋
+              {user?.name}
             </h1>
             {/* Badge de rang gamifié */}
-            <div className="d-flex align-items-center gap-2 mt-2">
-              <span style={{ background: 'rgba(255,255,255,0.2)', color: '#fff', padding: '4px 12px', borderRadius: 99, fontSize: '0.78rem', fontWeight: 600 }}>
-                ⭐ {stats?.rang}
+              <div className="d-flex align-items-center gap-2 mt-2">
+              <span style={{ background: 'rgba(255,255,255,0.2)', color: '#fff', padding: '4px 12px', borderRadius: 99, fontSize: '0.78rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                <i className="bi bi-trophy-fill" style={{ fontSize: '0.7rem' }}></i> {stats?.rang}
               </span>
-              <span style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '4px 12px', borderRadius: 99, fontSize: '0.78rem' }}>
-                📍 {user?.commune}
+              <span style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', padding: '4px 12px', borderRadius: 99, fontSize: '0.78rem', display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                <i className="bi bi-geo-alt-fill" style={{ fontSize: '0.7rem' }}></i> {user?.commune}
               </span>
             </div>
           </div>

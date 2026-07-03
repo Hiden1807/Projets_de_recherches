@@ -22,6 +22,7 @@ import AIAnalysis from '../pages/AIAnalysis'
 // ---- Pages Tableau de Bord (Protégées) ----
 import CitizenDashboard from '../pages/CitizenDashboard'
 import AuthorityDashboard from '../pages/AuthorityDashboard'
+import SuperAdminDashboard from '../pages/SuperAdminDashboard' // NOUVELLE PAGE
 import NewSignalement from '../pages/NewSignalement'
 import MySignalements from '../pages/MySignalements'
 import SignalementDetails from '../pages/SignalementDetails'
@@ -31,8 +32,17 @@ import Settings from '../pages/Settings'
 import { useAuth } from '../context/AuthContext'
 
 /**
+ * getDefaultRoute — Retourne la route par défaut selon le rôle
+ */
+const getDefaultRoute = (role) => {
+  if (role === 'superadmin') return '/superadmin-dashboard'
+  if (role === 'autorite') return '/authority-dashboard'
+  return '/citizen-dashboard'
+}
+
+/**
  * PrivateRoute — Composant de protection de route selon le rôle
- * @param {string} role - Rôle requis pour accéder ('citoyen', 'autorite', ou undefined pour tout connecté)
+ * @param {string} role - Rôle requis pour accéder ('citoyen', 'autorite', 'superadmin', ou undefined pour tout connecté)
  * @param {React.ReactNode} children - Contenu à afficher si autorisé
  */
 const PrivateRoute = ({ children, role }) => {
@@ -40,7 +50,7 @@ const PrivateRoute = ({ children, role }) => {
   if (!isAuthenticated()) return <Navigate to="/login" replace />
   // Si un rôle spécifique est requis et que l'utilisateur ne l'a pas
   if (role && user?.role !== role) {
-    return <Navigate to={user?.role === 'autorite' ? '/authority-dashboard' : '/citizen-dashboard'} replace />
+    return <Navigate to={getDefaultRoute(user?.role)} replace />
   }
   return children
 }
@@ -62,10 +72,10 @@ const AppRoutes = () => {
 
         {/* Pages d'authentification — redirigent si déjà connecté */}
         <Route path="/login" element={
-          user ? <Navigate to={user.role === 'autorite' ? '/authority-dashboard' : '/citizen-dashboard'} replace /> : <Login />
+          user ? <Navigate to={getDefaultRoute(user.role)} replace /> : <Login />
         } />
         <Route path="/register" element={
-          user ? <Navigate to={user.role === 'autorite' ? '/authority-dashboard' : '/citizen-dashboard'} replace /> : <Register />
+          user ? <Navigate to={getDefaultRoute(user.role)} replace /> : <Register />
         } />
 
         {/* Pages publiques accessibles sans connexion */}
@@ -89,7 +99,12 @@ const AppRoutes = () => {
           <PrivateRoute role="autorite"><AuthorityDashboard /></PrivateRoute>
         } />
 
-        {/* ---- Gestion des Signalements (accessible aux deux rôles) ---- */}
+        {/* ---- Tableau de bord Super Administrateur ---- */}
+        <Route path="/superadmin-dashboard" element={
+          <PrivateRoute role="superadmin"><SuperAdminDashboard /></PrivateRoute>
+        } />
+
+        {/* ---- Gestion des Signalements (accessible selon les rôles) ---- */}
         <Route path="/signalements" element={
           <PrivateRoute><MySignalements /></PrivateRoute>
         } />

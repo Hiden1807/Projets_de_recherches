@@ -133,17 +133,21 @@ const Profile = () => {
                 <div style={{ fontSize: '0.78rem', color: 'var(--eco-text-secondary)', marginTop: 4 }}>{user?.email}</div>
                 {/* Badge du rôle */}
                 <div className="mt-3">
-                  <span style={{
-                    background: user?.role === 'autorite' ? 'rgba(41,128,185,0.1)' : 'rgba(39,174,96,0.1)',
-                    color: user?.role === 'autorite' ? '#2980b9' : '#27ae60',
-                    padding: '5px 14px',
-                    borderRadius: 99,
-                    fontSize: '0.78rem',
-                    fontWeight: 700,
-                    border: `1px solid ${user?.role === 'autorite' ? 'rgba(41,128,185,0.25)' : 'rgba(39,174,96,0.25)'}`,
-                  }}>
-                    {user?.role === 'autorite' ? '🏛️ Autorité Urbaine' : '🌱 Éco-Citoyen'}
-                  </span>
+                    <span style={{
+                      background: user?.role === 'autorite' ? 'rgba(41,128,185,0.1)' : 'rgba(39,174,96,0.1)',
+                      color: user?.role === 'autorite' ? '#2980b9' : '#27ae60',
+                      padding: '5px 14px',
+                      borderRadius: 99,
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      border: `1px solid ${user?.role === 'autorite' ? 'rgba(41,128,185,0.25)' : 'rgba(39,174,96,0.25)'}`,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6,
+                    }}>
+                      <i className={user?.role === 'superadmin' ? 'bi bi-shield-fill-exclamation' : (user?.role === 'autorite' ? 'bi bi-building-fill' : 'bi bi-leaf-fill')}></i>
+                      {user?.role === 'superadmin' ? 'Super Administrateur' : (user?.role === 'autorite' ? 'Autorité Urbaine' : 'Éco-Citoyen')}
+                    </span>
                 </div>
               </div>
 

@@ -54,10 +54,10 @@ const PublicLayout = () => {
             <div className="col-md-4">
               <h6 style={{ color: '#fff', fontWeight: 600, marginBottom: 12 }}>Liens Rapides</h6>
               <ul className="list-unstyled" style={{ fontSize: '0.85rem' }}>
-                <li className="mb-1"><a href="/map" style={{ color: 'var(--eco-sidebar-text)', textDecoration: 'none', opacity: 0.8 }}>🗺️ Carte Écologique</a></li>
-                <li className="mb-1"><a href="/education" style={{ color: 'var(--eco-sidebar-text)', textDecoration: 'none', opacity: 0.8 }}>📚 Guides Éco</a></li>
-                <li className="mb-1"><a href="/statistics" style={{ color: 'var(--eco-sidebar-text)', textDecoration: 'none', opacity: 0.8 }}>📊 Statistiques</a></li>
-                <li className="mb-1"><a href="/register" style={{ color: 'var(--eco-sidebar-text)', textDecoration: 'none', opacity: 0.8 }}>🌱 Rejoindre la communauté</a></li>
+                <li className="mb-1"><a href="/map" style={{ color: 'var(--eco-sidebar-text)', textDecoration: 'none', opacity: 0.8, display: 'flex', alignItems: 'center', gap: 6 }}><i className="bi bi-map-fill" style={{ fontSize: '0.75rem' }}></i> Carte Écologique</a></li>
+                <li className="mb-1"><a href="/education" style={{ color: 'var(--eco-sidebar-text)', textDecoration: 'none', opacity: 0.8, display: 'flex', alignItems: 'center', gap: 6 }}><i className="bi bi-book-fill" style={{ fontSize: '0.75rem' }}></i> Guides Éco</a></li>
+                <li className="mb-1"><a href="/statistics" style={{ color: 'var(--eco-sidebar-text)', textDecoration: 'none', opacity: 0.8, display: 'flex', alignItems: 'center', gap: 6 }}><i className="bi bi-bar-chart-fill" style={{ fontSize: '0.75rem' }}></i> Statistiques</a></li>
+                <li className="mb-1"><a href="/register" style={{ color: 'var(--eco-sidebar-text)', textDecoration: 'none', opacity: 0.8, display: 'flex', alignItems: 'center', gap: 6 }}><i className="bi bi-leaf-fill" style={{ fontSize: '0.75rem' }}></i> Rejoindre la communauté</a></li>
               </ul>
             </div>
             {/* Colonne 3: Contact */}

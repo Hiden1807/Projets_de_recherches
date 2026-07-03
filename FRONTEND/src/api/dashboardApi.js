@@ -65,6 +65,22 @@ export const getStatsAutorite = async () => {
 }
 
 /**
+ * getStatsSuperAdmin — Statistiques globales pour la plateforme
+ * 🔧 BACKEND: axiosInstance.get('dashboard/superadmin/stats/')
+ */
+export const getStatsSuperAdmin = async () => {
+  await delay(600)
+  return {
+    totalCitoyens: 12450,
+    totalAutorites: 24,
+    signalementsGlobaux: 15420,
+    tauxResolutionGlobal: 68,
+    incidentsCritiques: 12,
+    budgetEstime: '1.2M $',
+  }
+}
+
+/**
  * getEvolutionStats — Données d'évolution pour les graphiques
  * 🔧 BACKEND: axiosInstance.get('statistiques/evolution/')
  */

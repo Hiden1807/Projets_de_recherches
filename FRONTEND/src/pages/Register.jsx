@@ -100,7 +100,10 @@ const Register = () => {
               <i className="bi bi-person-heart" style={{ color: '#27ae60', fontSize: '1.5rem' }}></i>
             </div>
             <div>
-              <h4 style={{ margin: 0, fontWeight: 700, fontSize: '1rem', color: 'var(--eco-text-primary)' }}>Inscription : Éco-Citoyen 🌱</h4>
+              <h4 style={{ margin: 0, fontWeight: 700, fontSize: '1rem', color: 'var(--eco-text-primary)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <i className="bi bi-leaf-fill" style={{ color: '#27ae60' }}></i>
+                Inscription : Éco-Citoyen
+              </h4>
               <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: 'var(--eco-text-secondary)' }}>Les comptes Autorités sont créés en interne.</p>
             </div>
           </div>
