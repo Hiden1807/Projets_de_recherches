@@ -21,7 +21,7 @@ class AIAnalysis(models.Model):
     summary = models.TextField()
     recommendation = models.TextField()
     confidence_score = models.PositiveSmallIntegerField(default=0)
-    coherence = models.CharField(max_length=40, default="moyenne")
+    coherence = models.CharField(max_length=255, default="moyenne")
     intervention_type = models.CharField(max_length=120, blank=True)
     priority_level = models.CharField(max_length=80, blank=True)
     recommended_delay = models.CharField(max_length=80, blank=True)
