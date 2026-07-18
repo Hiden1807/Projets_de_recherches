@@ -1,8 +1,12 @@
 #!/bin/bash
 set -e
 
-echo ">>> Applying migrations..."
-python manage.py migrate --noinput
+echo ">>> Applying migrations (with retry)..."
+for i in 1 2 3 4 5; do
+  python manage.py migrate --noinput && break
+  echo ">>> Migrate failed, retry $i/5 in 5s..."
+  sleep 5
+done
 
 echo ">>> Seeding reference data..."
 python manage.py seed_reference_data || true
