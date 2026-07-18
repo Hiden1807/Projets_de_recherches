@@ -42,7 +42,7 @@ def gemini_available():
 
 def _gemini_key():
     key = os.getenv("GEMINI_API_KEY", "").strip()
-    return "" if key.startswith("sk-or-v1-") else key
+    return "" if key.startswith("your-openrouter-api-key-here") else key
 
 
 def _gemini_model():
