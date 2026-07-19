@@ -358,7 +358,10 @@ def analyze_signalement(signalement):
         error_code = "invalid_ai_response"
         base = _analysis_unavailable(signalement, error_code=error_code)
 
-    exif = extract_exif_metadata(signalement.photo.path) if signalement.photo else {}
+    try:
+        exif = extract_exif_metadata(signalement.photo.path) if signalement.photo else {}
+    except (NotImplementedError, ValueError, OSError):
+        exif = {}
     duplicate, duplicate_score = find_probable_duplicate(signalement)
     flags = []
     if len(signalement.description.strip()) < 18:
