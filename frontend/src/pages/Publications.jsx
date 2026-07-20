@@ -70,13 +70,14 @@ const Publications = () => {
   const update = (field, value) => setForm((current) => ({ ...current, [field]: value }))
 
   const submit = async (event) => {
-    event.preventDefault()
+  event.preventDefault()
+  const formEl = event.currentTarget
     setSaving(true)
     setError('')
     try {
       await createPublication({ ...form, slug: '' })
       setForm(initialForm)
-      event.currentTarget.reset()
+      formEl.reset()
       await refresh()
     } catch (err) {
       const detail = err.response?.data?.detail || err.response?.data?.publication_type || err.message
